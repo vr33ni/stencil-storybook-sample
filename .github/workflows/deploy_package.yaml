@@ -32,14 +32,13 @@ jobs:
           node-version: 16
           registry-url: "https://npm.pkg.github.com"
 
-      - run: npm install
-
+ 
       - name: Create Release # releasing as a github npm package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
           AUTO_NO_VERIFY: 1
         run: | 
-          npm ci
+          npm install
           npm run build:stencil
           auto shipit
 
