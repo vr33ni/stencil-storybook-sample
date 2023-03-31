@@ -1,6 +1,8 @@
 dist/
 www/
 loader/
+storybook-static/
+
 
 *~
 *.sw[mnpcod]
@@ -24,3 +26,7 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
+
+# Dependency directories
+node_modules/
+jspm_packages/
