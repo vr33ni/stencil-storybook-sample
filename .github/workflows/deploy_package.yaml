@@ -20,9 +20,6 @@ jobs:
         with:
           fetch-depth: 0 # fetch all tags for ship-it
 
-      # - name: Clean working directory
-      #   run: git clean -fdx
-
       - name: download + setup auto
         uses: auto-it/setup-auto@v1
 
@@ -31,10 +28,7 @@ jobs:
         with:
           node-version: 16
           registry-url: "https://npm.pkg.github.com"
-
-      - name: Set environment variable
-        run: echo "AUTO_NO_CHECK_CLEAN=true" >> $GITHUB_ENV
-
+ 
       - name: Create Release # releasing as a github npm package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
