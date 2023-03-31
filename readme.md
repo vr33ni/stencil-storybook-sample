@@ -24,3 +24,39 @@ To run the unit tests for the components, run:
 ```bash
 npm test
 ```
+
+## Usage
+
+
+## Storybook deployment
+
+When trying to deploy Storybook to Github pages for the first time, following steps need to be considered:
+
+Create a new branch ```gh-pages``` and switch to the new branch.
+
+Run
+
+```bash
+npm run build:storybook
+```
+
+This builds storybook locally in the ```storybook-static```folder.
+
+Remove ```storybook-static``` from your ```.gitignore``` file.
+
+Run
+
+```git add storybook-static && git commit -m "Initial storybook-static subtree commit"```
+
+Run
+
+```git subtree push --prefix storybook-static origin gh-pages```
+
+In your repository, go to Settings > Pages > Build and Deployment and choose Deploy from Branch as source and gh-pages as the branch to deploy from.
+
+
+### Contributing
+
++ Create an issue with your new feature description on Github
++ Go to the issue and create a branch from it. (Naming convention: 'feature/name-of-component').
++ After the feature is ready for testing, create a pull request and request review => On each new pull request, github actions trigger the deployment to a github pages preview url as well as a canary release that can be used to include and test the new feature in another web application
