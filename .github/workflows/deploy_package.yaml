@@ -20,8 +20,8 @@ jobs:
         with:
           fetch-depth: 0 # fetch all tags for ship-it
 
-      - name: Clean working directory
-        run: git clean -fdx
+      # - name: Clean working directory
+      #   run: git clean -fdx
 
       - name: download + setup auto
         uses: auto-it/setup-auto@v1
@@ -34,12 +34,11 @@ jobs:
 
       - name: Set environment variable
         run: echo "AUTO_NO_CHECK_CLEAN=true" >> $GITHUB_ENV
-        
+
       - name: Create Release # releasing as a github npm package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
-          AUTO_NO_VERIFY: 1
-        run: | 
+         run: | 
           npm install
           npm run build:stencil
           auto shipit
