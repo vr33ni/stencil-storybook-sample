@@ -36,5 +36,5 @@ jobs:
           npm install
           npm run build:stencil
           git stash save "temporarily stash changes"
-          auto shipit --no-npm.publish
+          auto shipit --no-npm
           git stash pop
