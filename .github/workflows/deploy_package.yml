@@ -35,4 +35,4 @@ jobs:
         run: | 
           npm install
           npm run build:stencil
-          auto shipit --no-check-clean
+          auto shipit --ignore package-lock.json,src/components/spinner/readme.md,src/components/tag/readme.md
