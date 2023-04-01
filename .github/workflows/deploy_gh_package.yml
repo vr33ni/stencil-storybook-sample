@@ -44,7 +44,6 @@ jobs:
 
       - name: Deploy to GitHub Packages
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{secrets.GH_TOKEN}}" >> .npmrc
           npm init
           package name: @vr33ni/stencil-storybook-sample
           npm install
