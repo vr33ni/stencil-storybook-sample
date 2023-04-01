@@ -24,7 +24,7 @@ jobs:
         uses: auto-it/setup-auto@v1
       
       - name: Configure auto
-        run: auto config get
+        run: auto info
       - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
@@ -37,4 +37,4 @@ jobs:
         run: | 
           npm install
           npm run build:stencil
-          auto release
+          auto shipit
