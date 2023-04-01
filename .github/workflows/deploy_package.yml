@@ -37,6 +37,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: | 
           npm cache clean --force
-          npm install
+          npm update
           npm run build:stencil
           auto shipit
