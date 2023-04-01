@@ -11,28 +11,38 @@ on:
      - master
  
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')" # job will not run, if triggered via ship-it
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # fetch all tags for ship-it
-
-      - name: Clean working directory
-        run: git clean -fdx
-
-      - name: download + setup auto
-        uses: auto-it/setup-auto@v1
-
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-          registry-url: "https://npm.pkg.github.com"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - run: npm ci
+      - run: npm run build:stencil
+
+  # release:
+  #   runs-on: ubuntu-latest
+  #   if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')" # job will not run, if triggered via ship-it
+  #   steps:
+  #     - name: checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0 # fetch all tags for ship-it
+
+  #     - name: Clean working directory
+  #       run: git clean -fdx
+
+  #     - name: download + setup auto
+  #       uses: auto-it/setup-auto@v1
+
+  #     - name: Use Node.js 16.x
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 16
+  #         registry-url: "https://npm.pkg.github.com"
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       # - name: Create Release # releasing as a github npm package
       #   env:
@@ -42,10 +52,27 @@ jobs:
       #     npm run build:stencil
       #     auto shipit
 
-      - name: Deploy to GitHub Packages
-        run: |
-          npm init
-          package name: @vr33ni/stencil-storybook-sample
-          npm install
-          npm run build:stencil
-          npm publish --registry=https://npm.pkg.github.com/
+      # - name: Deploy to GitHub Packages
+      #   run: |
+      #     echo "//npm.pkg.github.com/:_authToken=${{secrets.GH_TOKEN}}" >> .npmrc
+      #     npm install
+      #     npm run build:stencil
+      #     npm publish --registry=https://npm.pkg.github.com/
+
+
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GH_TOKEN}}
