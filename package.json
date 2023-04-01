@@ -1,5 +1,5 @@
 {
-  "name": "stencil-storybook-sample",
+  "name": "@vr33ni/stencil-storybook-sample",
   "publishConfig": {
     "@vr33ni:registry": "https://npm.pkg.github.com"
   },
