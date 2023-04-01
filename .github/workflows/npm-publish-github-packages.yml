@@ -4,8 +4,14 @@
 name: Node.js Package
 
 on:
-  release:
-    types: [created]
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize # canary on new commit
+  push:
+    branches:
+     - master
 
 jobs:
   build:
