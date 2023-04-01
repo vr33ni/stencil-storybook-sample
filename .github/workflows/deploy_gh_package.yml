@@ -11,31 +11,53 @@ on:
      - master
  
 jobs:
-  release:
+  # release:
+  #   runs-on: ubuntu-latest
+  #   if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')" # job will not run, if triggered via ship-it
+  #   steps:
+  #     - name: checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0 # fetch all tags for ship-it
+
+  #     - name: Clean working directory
+  #       run: git clean -fdx
+
+  #     - name: download + setup auto
+  #       uses: auto-it/setup-auto@v1
+
+  #     - name: Use Node.js 16.x
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 16
+  #         registry-url: "https://npm.pkg.github.com"
+
+  #     - name: Create Release # releasing as a github npm package
+  #       run: | 
+  #         npm install
+  #         npm run build:stencil
+  #         npm publish
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  build:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')" # job will not run, if triggered via ship-it
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      # Setup .npmrc file to publish to GitHub Packages
+      - uses: actions/setup-node@v3
         with:
-          fetch-depth: 0 # fetch all tags for ship-it
-
-      - name: Clean working directory
-        run: git clean -fdx
-
-      - name: download + setup auto
-        uses: auto-it/setup-auto@v1
-
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-          registry-url: "https://npm.pkg.github.com"
-
-      - name: Create Release # releasing as a github npm package
+          node-version: '16.x'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@vr33ni'
+      - run: npm install
+      - run: npm ci
+      - run: npm run build:stencil
+      - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: | 
-          npm install
-          npm run build:stencil
-          auto shipit
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
