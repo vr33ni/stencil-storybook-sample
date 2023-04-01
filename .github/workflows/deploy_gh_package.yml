@@ -45,5 +45,5 @@ jobs:
       - name: Deploy to GitHub Packages
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{secrets.GH_TOKEN}}" >> .npmrc
-          npm run build # if you need to build your package
+          npm run build:stencil
           npm publish
