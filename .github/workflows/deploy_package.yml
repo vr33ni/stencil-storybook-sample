@@ -35,5 +35,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: | 
           npm install
+          git stash save "temporarily stash changes"
           npm run build:stencil
           auto shipit
+          git stash pop
