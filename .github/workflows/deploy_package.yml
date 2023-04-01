@@ -22,7 +22,9 @@ jobs:
 
       - name: download + setup auto
         uses: auto-it/setup-auto@v1
-
+      
+      - name: Configure auto
+        run: auto config
       - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
