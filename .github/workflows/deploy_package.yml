@@ -35,6 +35,4 @@ jobs:
         run: | 
           npm install
           npm run build:stencil
-         # git stash save "temporarily stash changes"
           auto release
-         # git stash pop
