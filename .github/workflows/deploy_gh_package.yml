@@ -34,10 +34,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - name: Create Release # releasing as a github npm package
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: | 
-          npm update
-          npm run build:stencil
-          auto shipit
+      # - name: Create Release # releasing as a github npm package
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
+      #   run: | 
+      #     npm install
+      #     npm run build:stencil
+      #     auto shipit
+
+      - name: Deploy to GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{secrets.GH_TOKEN}}" >> .npmrc
+          npm run build # if you need to build your package
+          npm publish
