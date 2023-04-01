@@ -39,6 +39,6 @@ jobs:
       - run: npm install
       - run: npm ci
       - run: npm run build:stencil
-      - run: npm publish
+      - run: npm publish # the version has to be updated in the package.json before publishing a new package version
         env:
           NODE_AUTH_TOKEN: ${{secrets.GH_TOKEN}}
