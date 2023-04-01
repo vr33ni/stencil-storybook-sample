@@ -34,6 +34,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: | 
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" >> .npmrc
           npm install
           npm run build:stencil
           git stash save "temporarily stash changes"
