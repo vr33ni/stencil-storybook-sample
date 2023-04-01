@@ -36,5 +36,3 @@ jobs:
           npm install
           npm run build:stencil
           auto shipit
-
-
