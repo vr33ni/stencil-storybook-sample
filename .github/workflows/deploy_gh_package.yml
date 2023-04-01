@@ -55,6 +55,7 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: '@vr33ni'
       - run: npm install
+      - run: npm ci
       - run: npm run build:stencil
       - run: npm publish
         env:
