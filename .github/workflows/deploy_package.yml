@@ -35,4 +35,4 @@ jobs:
         run: | 
           npm install
           npm run build:stencil
-          auto shipit
+          auto shipit --no-check-clean
