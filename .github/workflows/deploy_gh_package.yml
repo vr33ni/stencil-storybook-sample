@@ -33,10 +33,10 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
 
       - name: Create Release # releasing as a github npm package
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: | 
           npm install
           npm run build:stencil
-          auto shipit
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
 
