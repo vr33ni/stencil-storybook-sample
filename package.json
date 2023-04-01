@@ -1,7 +1,7 @@
 {
   "name": "@vr33ni/stencil-storybook-sample",
   "publishConfig": {
-    "@vr33ni:registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
   "version": "0.0.1",
   "description": "Stencil Component Starter",
@@ -15,7 +15,7 @@
   "unpkg": "dist/stencil-storybook-sample/stencil-storybook-sample.esm.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+    "url": "https://github.com/vr33ni/stencil-storybook-sample.git"
   },
   "files": [
     "dist/",
